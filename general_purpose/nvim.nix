@@ -6,7 +6,6 @@
     vimAlias      = true;
     viAlias       = true;
     vimdiffAlias  = true;
-    defaultEditor = true;
 
     plugins = with pkgs.vimPlugins; [
       # utilities
@@ -26,7 +25,7 @@
       tokyonight-nvim indent-blankline-nvim
       # tree sitter
       # for now (sadge)
-      #(nvim-treesitter.withPlugins (_: with plugins; pkgs.tree-sitter.allGrammars)) nvim-ts-rainbow
+      (nvim-treesitter.withPlugins (_: with plugins; pkgs.tree-sitter.allGrammars)) nvim-ts-rainbow
     ];
 
     extraPackages = with pkgs; [
@@ -264,85 +263,76 @@
           always_show_bufferline = true,
         }
       }
+      
+
+      vim.g.mapleader = "\<SPACE>"
+      vim.g.ale_floating_preview = 1
+      vim.g.ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
+      vim.g.cursorword_min_width = 3
+      vim.g.cursorword_max_width = 50
+      vim.g.multi_cursor_use_default_mapping = 1
+      vim.g.tokyonight_style = 'storm'
+
+      vim.api.nvim_set_keymap('n', '<Leader>', ':NERDTreeFocus<cr>', { nnoremap = true })
+      vim.api.nvim_set_keymap('t', '<Control>', ':NERDTreeToggle<cr>', { nnoremap = true })
+      vim.api.nvim_set_keymap('f', '<Control>', ':NERDTreeFind<cr>', { nnoremap = true })
+      vim.api.nvim_set_keymap('<', "", '<gv', { vnoremap = true })
+      vim.api.nvim_set_keymap('>', "", '>gv', { vnoremap = true })
+      vim.api.nvim_set_keymap('y', "", 'myy`y', { vnoremap = true })
+      vim.api.nvim_set_keymap('Y', "", 'myY`y', { vnoremap = true })
+      vim.api.nvim_set_keymap('k', '<Control>', '<cmd>vim.lsp.buf.signature_help()<cr>', { nnoremap = true })
+      vim.api.nvim_set_keymap('g', '<Leader>', ':ALEGoToDefinition<cr>', { nnoremap = true })
+      vim.api.nvim_set_keymap('fr', '<Leader>', ':ALEFindReferences<cr>', { nnoremap = true })
+      vim.api.nvim_set_keymap('ss', '<Leader>', ':ALESymbolSearch', { nnoremap = true })
+      vim.api.nvim_set_keymap('r', '<Leader>', ':ALERename', { nnoremap = true })
+      vim.api.nvim_set_keymap('k', '<Leader>', ':nohlsearch<cr>', { nnoremap = true })
+      vim.api.nvim_set_keymap('ff', '<Leader>', '<cmd>Telescope find_files<cr>', { nnoremap = true })
+      vim.api.nvim_set_keymap('tt', '<Leader>', '<cmd>Telescope<cr>', { nnoremap = true })
+      vim.api.nvim_set_keymap('w!', '<Leader>', ':SudoWrite<cr>', { nnoremap = true })
+      vim.api.nvim_set_keymap('e!', '<Leader>', ':SudoEdit<cr>', { nnoremap = true })
+      vim.api.nvim_set_keymap('[b', "", ':BufferLineCycleNext<cr>', { nnoremap = true, silent = true })
+      vim.api.nvim_set_keymap('b]', "", ':BufferLineCyclePrev<cr>', { nnoremap = true, silent = true })
+      vim.api.nvim_set_keymap('bh', '<Leader>', ':BufferLineMoveNext<cr>', { nnoremap = true, silent = true })
+      vim.api.nvim_set_keymap('bl', '<Leader>', ':BufferLineMovePrev<cr>', { nnoremap = true, silent = true })
+      vim.api.nvim_set_keymap('bd', "", ':BufferLineSortByDirectory<cr>', { nnoremap = true, silent = true })
+      vim.api.nvim_set_keymap('ga', "", ':EasyAlign<cr>', { vnoremap = true })
+      vim.api.nvim_set_keymap('x', "", '"_x', { noremap = true })
+
+      vim.cmd("set clipboard+=unnamedplus")
+      vim.cmd("syntax on")
+      vim.cmd("set hidden")
+      vim.cmd("set nobackup")
+      vim.cmd("set signcolumn=yes:2")
+      vim.cmd("set nowritebackup")
+      vim.cmd("set cmdheight=2")
+      vim.cmd("set updatetime=300")
+      vim.cmd("set shortmess+=c")
+      vim.cmd("set backspace=2")
+      vim.cmd("set visualbell")
+      vim.cmd("set t_vb=")
+      vim.cmd("set title")
+      vim.cmd("set relativenumber")
+      vim.cmd("set number")
+      vim.cmd("set ruler")
+      vim.cmd("set tabstop=2")
+      vim.cmd("shiftwidth=2")
+      vim.cmd("smarttab")
+      vim.cmd("expandtab")
+      vim.cmd("set noexpandtab")
+      vim.cmd("set cursorline")
+      vim.cmd("set encoding=UTF-8")
+      vim.cmd("set smartcase")
+      vim.cmd("set smartindent")
+      vim.cmd("set ignorecase")
+      vim.cmd("set cursorline")
+      vim.cmd("set updatetime=300")
+      vim.cmd("set redrawtime=10000")
+      vim.g.colors_name = "tokyonight"
       EOF
-
-      let mapleader = "\<SPACE>"
-
-      let g:ale_floating_preview = 1
-      let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
-
-      " min width of word
-      let g:cursorword_min_width = 3
-
-      " max width of word
-      let g:cursorword_max_width = 50
-      let g:multi_cursor_use_default_mapping = 1
-
-      let g:tokyonight_style = 'storm'
-
-      nnoremap <leader>n :NERDTreeFocus<cr>
-      nnoremap <C-t> :NERDTreeToggle<cr>
-      nnoremap <C-f> :NERDTreeFind<cr>
-
-      vnoremap < <gv
-      vnoremap > >gv
-      vnoremap y myy`y
-      vnoremap Y myY`y
-
-      nnoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<cr>
-      nnoremap <leader>g :ALEGoToDefinition<cr>
-      nnoremap <leader>fr :ALEFindReferences<cr>
-      nnoremap <leader>ss :ALESymbolSearch
-      nnoremap <leader>r :ALERename
-
-      nnoremap <leader>k :nohlsearch<cr>
-      nnoremap <leader>ff <cmd>Telescope find_files<cr>
-      nnoremap <leader>tt <cmd>Telescope<cr>
-      nnoremap <leader>w! :SudoWrite<cr>
-      nnoremap <leader>e! :SudoEdit<cr>
-
-      nnoremap <silent>[b :BufferLineCycleNext<CR>
-      nnoremap <silent>b] :BufferLineCyclePrev<CR>
-      nnoremap <silent><leader>bh :BufferLineMoveNext<CR>
-      nnoremap <silent><leader>bl :BufferLineMovePrev<CR>
-      nnoremap <silent>bd :BufferLineSortByDirectory<CR>
-
-      vnoremap ga :EasyAlign<cr>
-
-      vnoremap x "_x
-      nnoremap x "_x
-
-      set clipboard+=unnamedplus
-      syntax on
-      set hidden
-      set nobackup
-      set signcolumn=yes:2
-      set nowritebackup
-      set cmdheight=2
-      set updatetime=300
-      set shortmess+=c
-      set backspace=2
-      set visualbell
-      set t_vb=
-      set title
-      set relativenumber
-      set number
-      set ruler
-      set tabstop=2 shiftwidth=2 smarttab expandtab
-      set noexpandtab
-      set cursorline
-      set encoding=UTF-8
-      set smartcase
-      set smartindent
-      set ignorecase
-      set cursorline
-      set updatetime=300
-      set redrawtime=10000
-
-      colorscheme tokyonight
     '';
   };
 
+  home.sessionVariables.EDITOR = "nvim";
   # home.file = {
   #   ".config/nvim/lua" = {
   #     source = "${dotfiles}/nvim/lua";
