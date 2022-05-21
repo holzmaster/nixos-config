@@ -15,6 +15,9 @@
     # Compositor
     picom
 
+    # Clipboard management
+    xclip
+
     # Panel
     # Maybe also volatile?
     polybar

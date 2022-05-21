@@ -33,6 +33,7 @@
     ];
 
     extraConfig = ''
+
       lua << EOF 
       -- colored indent guides
       vim.opt.termguicolors = true
@@ -278,7 +279,6 @@
       EOF
       
 
-      lua << EOF 
       vim.g.mapleader = "\<SPACE>"
       vim.g.ale_floating_preview = 1
       vim.g.ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
@@ -342,9 +342,6 @@
       vim.cmd("set updatetime=300")
       vim.cmd("set redrawtime=10000")
       vim.cmd("colorscheme tokyonight")
-
-      -- cmon this should work 
-      EOF
     '';
   };
 
