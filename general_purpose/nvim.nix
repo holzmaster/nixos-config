@@ -56,7 +56,9 @@
               "IndentBlanklineIndent6",
           },
       }
+      EOF
 
+      lua << EOF 
       -- initialize lsp signature 
       require('lsp_signature').setup({
         bind = true,
@@ -77,7 +79,9 @@
         transparency = nil,
         timer_interval = 100
       })
+      EOF
 
+      lua << EOF 
       -- initialize completion 
       local lspkind = require("lspkind")
       vim.opt.completeopt = { "menu", "menuone", "noselect" }
@@ -143,7 +147,9 @@
           { jame = 'buffer' }
         }
       })
+      EOF
 
+      lua << EOF 
       -- initialize lualine 
       local config = {
         options = {
@@ -196,7 +202,9 @@
         message = { commenced = 'In Progress', completed = 'Completed' },
       }
       require('lualine').setup(config)
+      EOF
 
+      lua << EOF 
       -- initialize lsp
       local lcfg = require('lspconfig')
       lcfg.zls.setup{}
@@ -207,7 +215,9 @@
       lcfg.dockerls.setup{}
       lcfg.html.setup{}
       lcfg.rnix.setup{}
+      EOF
 
+      lua << EOF 
       -- initialize tree-sitter
       require('nvim-treesitter.configs').setup {
         highlight = {
@@ -222,7 +232,9 @@
           enable = true,
         },
       }
+      EOF
 
+      lua << EOF 
       -- initialize buffer line
       require('bufferline').setup {
         options = {
@@ -263,8 +275,10 @@
           always_show_bufferline = true,
         }
       }
+      EOF
       
 
+      lua << EOF 
       vim.g.mapleader = "\<SPACE>"
       vim.g.ale_floating_preview = 1
       vim.g.ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰']
@@ -327,7 +341,9 @@
       vim.cmd("set cursorline")
       vim.cmd("set updatetime=300")
       vim.cmd("set redrawtime=10000")
-      vim.g.colors_name = "tokyonight"
+      vim.cmd("colorscheme tokyonight")
+
+      -- cmon this should work 
       EOF
     '';
   };
